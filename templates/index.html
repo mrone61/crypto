@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Enkripsi & Dekripsi Pesan</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>🔐 Enkripsi & Dekripsi</h1>
+
+            <p class="subjudul">
+                Sistem sederhana untuk mengamankan pesan menggunakan Python Flask.
+            </p>
+
+            <form method="POST">
+
+                <label for="pesan">
+                    Masukkan Pesan
+                </label>
+
+                <textarea
+                    name="pesan"
+                    id="pesan"
+                    placeholder="Contoh: selamat malam"
+                    required></textarea>
+
+                <div class="button-group">
+
+                    <button
+                        type="submit"
+                        name="mode"
+                        value="enkripsi"
+                        class="btn encrypt">
+                        🔒 Enkripsi
+                    </button>
+
+                    <button
+                        type="submit"
+                        name="mode"
+                        value="dekripsi"
+                        class="btn decrypt">
+                        🔓 Dekripsi
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            {% if hasil %}
+
+            <div class="hasil">
+
+                <h2>
+                    {% if mode == "enkripsi" %}
+                        🔒 Hasil Enkripsi
+                    {% else %}
+                        🔓 Hasil Dekripsi
+                    {% endif %}
+                </h2>
+
+                <textarea id="hasil" readonly>{{ hasil }}</textarea>
+
+                <button onclick="salinHasil()" class="copy-btn">
+                    📋 Salin Hasil
+                </button>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    <script>
+        function salinHasil() {
+            const hasil = document.getElementById("hasil");
+
+            hasil.select();
+            hasil.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(hasil.value);
+
+            alert("Hasil berhasil disalin!");
+        }
+    </script>
+
+</body>
+
+</html>
