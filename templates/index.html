@@ -22,9 +22,17 @@
             <h1>Secure Message System</h1>
             <p class="subjudul">Mengamankan kerahasiaan dan integritas pesan berbasis kriptografi simetris menggunakan <b>Teknologi (AES-128 Dan HMAC-SHA256)</b>.</p>
 
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <label for="pesan">Masukkan Pesan</label>
-                <textarea name="pesan" id="pesan" placeholder="Contoh: selamat malam" required></textarea>
+                <textarea name="pesan" id="pesan" placeholder="Contoh: selamat malam / paste token enkripsi di sini"></textarea>
+
+                <!-- TOMBOL + BUAT FILE -->
+                <div style="display:flex; align-items:center; gap:10px; margin-top:12px; text-align:left;">
+                    <label for="fileInput" style="cursor:pointer; background:#1a1a1a; border:1px solid #262626; padding:8px 14px; border-radius:99px; font-size:13px; color:#fff; font-weight:600; white-space:nowrap;">+ Gambar / Audio / Video</label>
+                    <input type="file" id="fileInput" name="file" style="display:none;" onchange="document.getElementById('fileName').textContent = this.files[0].name">
+                    <span id="fileName" style="font-size:12px; color:#9ca3af; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></span>
+                </div>
+
                 <div class="button-group">
                     <button type="submit" name="mode" value="enkripsi" class="btn encrypt">Enkripsi Pesan</button>
                     <button type="submit" name="mode" value="dekripsi" class="btn decrypt">Dekripsi Pesan</button>
@@ -36,6 +44,21 @@
                 <h2>{% if mode == "enkripsi" %}Hasil Enkripsi{% else %}Hasil Dekripsi{% endif %}</h2>
                 <textarea id="hasil" readonly>{{ hasil }}</textarea>
                 <button onclick="salinHasil()" class="copy-btn">Salin Hasil</button>
+
+                <!-- KALO HASIL DEKRIP NYA FILE, TAMPILIN DI SINI -->
+                {% if hasil_file %}
+                <div style="margin-top:16px; text-align:center;">
+                    <p style="font-size:13px; color:#9ca3af;">File: {{ hasil_filename }}</p>
+                    {% if hasil_mimetype.startswith('image/') %}
+                        <img src="{{ hasil_file }}" style="max-width:100%; border-radius:10px; margin-top:10px; border:1px solid #262626;">
+                    {% elif hasil_mimetype.startswith('audio/') %}
+                        <audio controls src="{{ hasil_file }}" style="width:100%; margin-top:10px;"></audio>
+                    {% elif hasil_mimetype.startswith('video/') %}
+                        <video controls src="{{ hasil_file }}" style="max-width:100%; border-radius:10px; margin-top:10px; border:1px solid #262626;"></video>
+                    {% endif %}
+                    <a href="{{ hasil_file }}" download="{{ hasil_filename }}" style="display:block; margin-top:10px; color:#10b981; font-size:13px; font-weight:600;">Download File Asli</a>
+                </div>
+                {% endif %}
             </div>
             {% endif %}
 
