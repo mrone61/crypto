@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Enkripsi & Dekripsi Pesan</title>
+    <title>CryptoSecure</title>
+    <meta name="description" content="Sistem keamanan pesan berbasis kriptografi simetris menggunakan Python Flask dan Fernet (AES-128 + HMAC).">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -16,16 +17,32 @@
 
         <div class="card">
 
-            <h1>🔐 Enkripsi & Dekripsi</h1>
+            <div style="text-align:center; margin-bottom: 10px;">
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">
+                    ● CYBER SECURITY - CRYPTOGRAPHY
+                </span>
+            </div>
 
-            <p class="subjudul">
-                Sistem sederhana untuk mengamankan pesan menggunakan Python Flask.
+            <h1>🔐 CryptoSecure</h1>
+
+            <p class="subjudul" style="font-size: 16px; font-weight: 600; color: #111;">
+                Sistem Keamanan Pesan Berbasis Kriptografi Simetris
             </p>
+
+            <p class="subjudul" style="font-size: 14px; line-height: 1.6; color: #555;">
+                Mengamankan kerahasiaan dan integritas pesan menggunakan <b>Python Flask</b> dengan algoritma <b>Fernet (AES-128 CBC + HMAC-SHA256)</b>. Pesan yang terenkripsi hanya dapat dibuka dengan kunci yang sah dan tidak dapat dimanipulasi.
+            </p>
+
+            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 16px 0; font-size: 12px;">
+                <span style="background:#f1f1f1; padding:5px 10px; border-radius:8px;">🔒 AES-128 Encryption</span>
+                <span style="background:#f1f1f1; padding:5px 10px; border-radius:8px;">🛡️ HMAC Integrity</span>
+                <span style="background:#f1f1f1; padding:5px 10px; border-radius:8px;">🐍 Python Flask</span>
+            </div>
 
             <form method="POST">
 
                 <label for="pesan">
-                    Masukkan Pesan
+                    Masukkan Pesan / Ciphertext
                 </label>
 
                 <textarea
@@ -41,7 +58,7 @@
                         name="mode"
                         value="enkripsi"
                         class="btn encrypt">
-                        🔒 Enkripsi
+                        🔒 Enkripsi Pesan
                     </button>
 
                     <button
@@ -49,7 +66,7 @@
                         name="mode"
                         value="dekripsi"
                         class="btn decrypt">
-                        🔓 Dekripsi
+                        🔓 Dekripsi Pesan
                     </button>
 
                 </div>
@@ -62,9 +79,9 @@
 
                 <h2>
                     {% if mode == "enkripsi" %}
-                        🔒 Hasil Enkripsi
+                        🔒 Hasil Enkripsi - Ciphertext
                     {% else %}
-                        🔓 Hasil Dekripsi
+                        🔓 Hasil Dekripsi - Plaintext
                     {% endif %}
                 </h2>
 
@@ -77,6 +94,12 @@
             </div>
 
             {% endif %}
+
+            <div style="margin-top: 24px; padding: 14px; background: #f8f9fa; border-radius: 10px; font-size: 12.5px; line-height: 1.6; color: #555; text-align: left;">
+                <b style="color:#111;">Cara Kerja Sistem:</b><br>
+                <b>1. Enkripsi:</b> Plaintext diubah menjadi Ciphertext acak dengan AES-128 dan ditandatangani HMAC.<br>
+                <b>2. Dekripsi:</b> Sistem memverifikasi HMAC terlebih dahulu. Jika valid, pesan dikembalikan ke bentuk asli. Jika dimanipulasi, sistem akan menolak.
+            </div>
 
         </div>
 
