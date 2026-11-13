@@ -15,7 +15,7 @@ body {
     margin: 0 auto;
     padding: 22px 16px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 .logo {
@@ -38,7 +38,7 @@ body {
 }
 
 /* Tombol titik 3 */
-.menu-wrap { position: relative; }
+.menu-wrap { position: relative; margin-left: auto; }
 .menu-btn {
     width: 38px; height: 38px;
     border-radius: 50%;
