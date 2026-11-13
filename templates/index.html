@@ -8,10 +8,9 @@
 </head>
 <body>
 
-    
     <header class="navbar">
-            <div class="menu-wrap">
-            <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+        <div class="menu-wrap">
+            <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
             <div id="menuDropdown" class="dropdown">
                 <a href="/about">ℹ️ &nbsp; About</a>
             </div>
@@ -40,15 +39,26 @@
             </div>
             {% endif %}
 
-            
         </div>
         <div class="footer">Powered by MR ONE</div>
     </div>
 
     <script>
-        function toggleMenu(){ document.getElementById("menuDropdown").classList.toggle("show"); }
-        window.onclick = function(e){ if(!e.target.matches('.menu-btn')){ document.getElementById("menuDropdown").classList.remove("show"); } }
-        function salinHasil(){ const h=document.getElementById("hasil"); h.select(); navigator.clipboard.writeText(h.value); alert("Hasil berhasil disalin!"); }
+        function toggleMenu(e){
+            e.stopPropagation();
+            document.getElementById("menuDropdown").classList.toggle("show");
+        }
+        window.onclick = function(e){
+            if(!e.target.matches('.menu-btn')){
+                document.getElementById("menuDropdown").classList.remove("show");
+            }
+        }
+        function salinHasil(){
+            const h=document.getElementById("hasil");
+            h.select();
+            navigator.clipboard.writeText(h.value);
+            alert("Hasil berhasil disalin!");
+        }
     </script>
 </body>
 </html>
