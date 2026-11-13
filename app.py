@@ -1,9 +1,9 @@
 import os
+import base64
 from flask import Flask, render_template, request
 from cryptography.fernet import Fernet
 
 app = Flask(__name__)
-
 
 KEY_ENV = os.environ.get("FERNET_KEY")
 if KEY_ENV:
@@ -21,26 +21,68 @@ cipher = Fernet(KEY)
 def index():
     hasil = ""
     mode = ""
+    hasil_file = None
+    hasil_filename = ""
+    hasil_mimetype = ""
+
     if request.method == "POST":
-        pesan = request.form.get("pesan", "").strip()
         mode = request.form.get("mode", "")
-        if len(pesan) > 500:
-            hasil = "Pesan terlalu panjang, maks 500 karakter."
-        elif not pesan:
-            hasil = "Pesan tidak boleh kosong."
-        elif mode == "enkripsi":
-            try:
-                hasil = cipher.encrypt(pesan.encode()).decode()
-            except Exception:
-                hasil = "Gagal mengenkripsi pesan."
-        elif mode == "dekripsi":
-            try:
-                hasil = cipher.decrypt(pesan.encode()).decode()
-            except Exception:
-                hasil = "Pesan tidak valid atau kunci tidak sesuai."
+        pesan = request.form.get("pesan", "").strip()
+        file = request.files.get("file")
+
+        #FILE (GAMBAR / AUDIO / VIDEO) ===
+        if file and file.filename != "":
+            data = file.read()
+            if len(data) > 20 * 1024 * 1024:
+                hasil = "File terlalu besar, maks 20MB."
+            elif mode == "enkripsi":
+                try:
+                    header = f"{file.filename}|{file.mimetype}|".encode()
+                    payload = header + data
+                    hasil = cipher.encrypt(payload).decode()
+                except Exception:
+                    hasil = "Gagal mengenkripsi file."
+            elif mode == "dekripsi":
+                hasil = "Untuk dekripsi file, paste token nya di kolom pesan, jangan upload file lagi."
+        
+        # === KALO CUMA TEKS / TOKEN ===
         else:
-            hasil = "Mode tidak dikenali."
-    return render_template("index.html", hasil=hasil, mode=mode)
+            if len(pesan) > 1000000:
+                hasil = "Pesan terlalu panjang."
+            elif not pesan:
+                hasil = "Pesan tidak boleh kosong."
+            elif mode == "enkripsi":
+                try:
+                    hasil = cipher.encrypt(pesan.encode()).decode()
+                except Exception:
+                    hasil = "Gagal mengenkripsi pesan."
+            elif mode == "dekripsi":
+                try:
+                    decrypted = cipher.decrypt(pesan.encode())
+                    try:
+                        parts = decrypted.split(b"|", 2)
+                        if len(parts) == 3:
+                            fname = parts[0].decode()
+                            fmime = parts[1].decode()
+                            fdata = parts[2]
+                            if "/" in fmime:
+                                hasil = f"File berhasil didekripsi: {fname}"
+                                hasil_filename = fname
+                                hasil_mimetype = fmime
+                                b64 = base64.b64encode(fdata).decode()
+                                hasil_file = f"data:{fmime};base64,{b64}"
+                            else:
+                                raise ValueError("Bukan file")
+                        else:
+                            raise ValueError("Bukan file")
+                    except Exception:
+                        hasil = decrypted.decode()
+                except Exception:
+                    hasil = "Pesan tidak valid atau kunci tidak sesuai."
+            else:
+                hasil = "Mode tidak dikenali."
+
+    return render_template("index.html", hasil=hasil, mode=mode, hasil_file=hasil_file, hasil_filename=hasil_filename, hasil_mimetype=hasil_mimetype)
     
 @app.route("/about")
 def about():
