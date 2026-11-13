@@ -8,10 +8,8 @@
 </head>
 <body>
 
-    
-    <header class="navbar">
-          <a href="/" class="back-link">Kembali</a>
-        
+    <header class="navbar" style="justify-content: flex-start;">
+        <a href="/" class="back-link">← Kembali</a>
     </header>
 
     <div class="container">
@@ -22,16 +20,19 @@
 
             <div class="about-list">
                 <h3>1. Enkripsi - Plaintext menjadi Ciphertext</h3>
-                <p>Pesan yang dimasukkan dienkripsi menggunakan AES-128 CBC menjadi kode acak, kemudian ditandatangani dengan HMAC-SHA256 agar tidak dapat diubah.</p>
+                <p>Pesan atau file yang dimasukkan dienkripsi menggunakan AES-128 CBC (via Fernet) menjadi kode acak, kemudian ditandatangani dengan HMAC-SHA256 agar tidak dapat diubah.</p>
 
                 <h3>2. Dekripsi - Verifikasi sebelum dibuka</h3>
-                <p>Sistem memverifikasi HMAC terlebih dahulu. Jika valid dan kunci sesuai, pesan dikembalikan ke bentuk asli. Jika ada satu karakter yang diubah, sistem akan menolak.</p>
+                <p>Sistem memverifikasi HMAC terlebih dahulu. Jika valid dan kunci sesuai, pesan atau file dikembalikan ke bentuk asli. Jika ada satu karakter yang diubah, sistem akan menolak.</p>
 
-                <h3>3. Keamanan</h3>
-                <p>AES-128 merupakan standar enkripsi yang digunakan di perbankan. Kunci disimpan aman di Environment Variable server dan tidak tertulis di kode program. Input dibatasi maksimal 500 karakter untuk mencegah penyalahgunaan.</p>
+                <h3>3. Enkripsi File - Gambar, Audio & Video</h3>
+                <p>Selain teks, sistem juga bisa mengenkripsi gambar, musik, dan video. File dibaca sebagai bytes, lalu dienkripsi menjadi token teks. Saat didekripsi, file akan kembali utuh dan bisa langsung ditampilkan atau di-download. Maksimal ukuran file 20MB.</p>
 
-                <h3>4. Teknologi</h3>
-                <p>Python Flask, Cryptography (Fernet), HTML/CSS (FRONTEND).</p>
+                <h3>4. Keamanan</h3>
+                <p>AES-128 merupakan standar enkripsi yang digunakan di perbankan. Kunci disimpan aman di Environment Variable server dan tidak tertulis di kode program. Input dibatasi untuk mencegah penyalahgunaan.</p>
+
+                <h3>5. Teknologi</h3>
+                <p>Python Flask, Cryptography (Fernet - AES-128 + HMAC-SHA256), HTML/CSS (FRONTEND).</p>
             </div>
         </div>
         <div class="footer">Powered by MR ONE</div>
