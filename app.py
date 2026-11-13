@@ -1,93 +1,79 @@
-import os
-import base64
-from flask import Flask, render_template, request
-from cryptography.fernet import Fernet
+import os, base64, secrets
+from flask import Flask, render_template, request, jsonify
+from cryptography.fernet import Fernet, InvalidToken
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives import hashes
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 20 * 1024 * 1024
 
-KEY_ENV = os.environ.get("FERNET_KEY")
-if KEY_ENV:
-    KEY = KEY_ENV.encode()
-else:
-    KEY = Fernet.generate_key()
-    print("=" * 50)
-    print("KUNCI BARU KAMU (COPY KE VERCEL):")
-    print(KEY.decode())
-    print("=" * 50)
+def buat_kunci_dari_password(password, salt):
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=600000,
+    )
+    kunci = kdf.derive(password.encode())
+    return base64.urlsafe_b64encode(kunci)
 
-cipher = Fernet(KEY)
+def enkrip_dengan_password(data_bytes, password):
+    salt = secrets.token_bytes(16) # Salt acak 16 byte
+    f = Fernet(buat_kunci_dari_password(password, salt))
+    token = f.encrypt(data_bytes)
+    # Gabungin Salt + Token biar bisa di dekrip nanti
+    # Format: base64(salt) + "." + token
+    return base64.urlsafe_b64encode(salt).decode() + "." + token.decode()
 
-@app.route("/", methods=["GET", "POST"])
+def dekrip_dengan_password(token_gabungan, password):
+    try:
+        salt_b64, token = token_gabungan.split(".", 1)
+        salt = base64.urlsafe_b64decode(salt_b64)
+        f = Fernet(buat_kunci_dari_password(password, salt))
+        return f.decrypt(token.encode())
+    except Exception:
+        return None
+
+@app.route('/')
 def index():
-    hasil = ""
-    mode = ""
-    hasil_file = None
-    hasil_filename = ""
-    hasil_mimetype = ""
+    return render_template('index.html')
 
-    if request.method == "POST":
-        mode = request.form.get("mode", "")
-        pesan = request.form.get("pesan", "").strip()
-        file = request.files.get("file")
+@app.route('/encrypt', methods=['POST'])
+def encrypt():
+    password = request.form.get('password', '')
+    if not password:
+        return jsonify({'error': 'Password wajib diisi!'}), 400
 
-        #FILE (GAMBAR / AUDIO / VIDEO) ===
-        if file and file.filename != "":
-            data = file.read()
-            if len(data) > 20 * 1024 * 1024:
-                hasil = "File terlalu besar, maks 20MB."
-            elif mode == "enkripsi":
-                try:
-                    header = f"{file.filename}|{file.mimetype}|".encode()
-                    payload = header + data
-                    hasil = cipher.encrypt(payload).decode()
-                except Exception:
-                    hasil = "Gagal mengenkripsi file."
-            elif mode == "dekripsi":
-                hasil = "Untuk dekripsi file, paste token nya di kolom pesan, jangan upload file lagi."
-        
-        # === KALO CUMA TEKS / TOKEN ===
-        else:
-            if len(pesan) > 1000000:
-                hasil = "Pesan terlalu panjang."
-            elif not pesan:
-                hasil = "Pesan tidak boleh kosong."
-            elif mode == "enkripsi":
-                try:
-                    hasil = cipher.encrypt(pesan.encode()).decode()
-                except Exception:
-                    hasil = "Gagal mengenkripsi pesan."
-            elif mode == "dekripsi":
-                try:
-                    decrypted = cipher.decrypt(pesan.encode())
-                    try:
-                        parts = decrypted.split(b"|", 2)
-                        if len(parts) == 3:
-                            fname = parts[0].decode()
-                            fmime = parts[1].decode()
-                            fdata = parts[2]
-                            if "/" in fmime:
-                                hasil = f"File berhasil didekripsi: {fname}"
-                                hasil_filename = fname
-                                hasil_mimetype = fmime
-                                b64 = base64.b64encode(fdata).decode()
-                                hasil_file = f"data:{fmime};base64,{b64}"
-                            else:
-                                raise ValueError("Bukan file")
-                        else:
-                            raise ValueError("Bukan file")
-                    except Exception:
-                        hasil = decrypted.decode()
-                except Exception:
-                    hasil = "Pesan tidak valid atau kunci tidak sesuai."
-            else:
-                hasil = "Mode tidak dikenali."
+    # Kalo ada file, enkrip file. Kalo gak ada, enkrip teks
+    if 'file' in request.files and request.files['file'].filename != '':
+        file = request.files['file']
+        data = file.read()
+        hasil = enkrip_dengan_password(data, password)
+        return jsonify({'result': hasil, 'filename': file.filename, 'type': 'file'})
+    else:
+        pesan = request.form.get('message', '')
+        if not pesan:
+            return jsonify({'error': 'Pesan / File wajib diisi!'}), 400
+        hasil = enkrip_dengan_password(pesan.encode(), password)
+        return jsonify({'result': hasil, 'type': 'text'})
 
-    return render_template("index.html", hasil=hasil, mode=mode, hasil_file=hasil_file, hasil_filename=hasil_filename, hasil_mimetype=hasil_mimetype)
-    
-@app.route("/about")
-def about():
-    return render_template("about.html")
+@app.route('/decrypt', methods=['POST'])
+def decrypt():
+    password = request.form.get('password', '')
+    token = request.form.get('token', '')
+    if not password or not token:
+        return jsonify({'error': 'Token dan Password wajib diisi!'}), 400
 
-if __name__ == "__main__":
-    is_debug = os.environ.get("FLASK_ENV") != "production"
-    app.run(host="127.0.0.1", port=5000, debug=is_debug)
+    hasil_bytes = dekrip_dengan_password(token.strip(), password)
+    if hasil_bytes is None:
+        return jsonify({'error': 'Password salah atau Token sudah diubah!'}), 400
+
+    # Coba baca sebagai teks, kalo gagal berarti itu file
+    try:
+        return jsonify({'result': hasil_bytes.decode(), 'type': 'text'})
+    except:
+        # Kalo file, kirim sebagai base64 biar bisa di download
+        return jsonify({'result': base64.b64encode(hasil_bytes).decode(), 'type': 'file'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
