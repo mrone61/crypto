@@ -7,55 +7,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
+    
+    <header class="navbar">
+        <div class="logo">🔐 CryptoSecure <span>SECURE</span></div>
+        <a href="/" class="back-link">Kembali</a>
+    </header>
+
     <div class="container">
-        <div class="card">
+        <div class="card" style="text-align:left;">
+            <div class="badge">TENTANG SISTEM</div>
+            <h1 style="text-align:left;">Cara Kerja Sistem</h1>
+            <p class="subjudul" style="margin:0; text-align:left;">CryptoSecure menjamin dua aspek utama keamanan: <b>kerahasiaan</b> dan <b>keutuhan data</b>.</p>
 
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div style="font-weight:800; font-size:15px;">🔐 CRYPTOSECURE</div>
-                <a href="/" style="text-decoration:none; background:#111; color:white; padding:8px 14px; border-radius:20px; font-size:13px; font-weight:700;">← Kembali ke Home</a>
+            <div class="about-list">
+                <h3>1. Enkripsi — Plaintext menjadi Ciphertext</h3>
+                <p>Pesan yang dimasukkan dienkripsi menggunakan AES-128 CBC menjadi kode acak, kemudian ditandatangani dengan HMAC-SHA256 agar tidak dapat diubah.</p>
+
+                <h3>2. Dekripsi — Verifikasi sebelum dibuka</h3>
+                <p>Sistem memverifikasi HMAC terlebih dahulu. Jika valid dan kunci sesuai, pesan dikembalikan ke bentuk asli. Jika ada satu karakter yang diubah, sistem akan menolak.</p>
+
+                <h3>3. Keamanan</h3>
+                <p>AES-128 merupakan standar enkripsi yang digunakan di perbankan. Kunci disimpan aman di Environment Variable server dan tidak tertulis di kode program. Input dibatasi maksimal 5000 karakter untuk mencegah penyalahgunaan.</p>
+
+                <h3>4. Teknologi</h3>
+                <p>Python, Flask, Cryptography (Fernet), HTML/CSS, Vercel, GitHub.</p>
             </div>
-
-            <h1 style="margin-top:20px;">ℹ️ About</h1>
-            <p class="subjudul" style="line-height:1.7; color:#555;">
-                <b>CryptoSecure</b> adalah sistem sederhana untuk mengamankan pesan menggunakan <b>Python Flask</b> dan kriptografi simetris <b>Fernet</b>. Sistem ini menjamin 2 hal penting dalam Cyber Security: <b>Confidentiality (kerahasiaan)</b> dan <b>Integrity (keutuhan data)</b>.
-            </p>
-
-            <div style="text-align:left; background:#f8f9fa; padding:16px; border-radius:12px; line-height:1.8; font-size:14px; margin-top:16px;">
-                <h3>🔒 1. Enkripsi (Plaintext → Ciphertext)</h3>
-                <p>1. User mengetik pesan, contoh: <code>selamat malam</code><br>
-                2. Sistem mengambil kunci rahasia <code>FERNET_KEY</code> yang tersimpan aman di server.<br>
-                3. Pesan dienkripsi dengan <b>AES-128 CBC</b> menjadi kode acak <code>gAAAAAB...</code><br>
-                4. Hasilnya ditandatangani digital dengan <b>HMAC-SHA256</b> agar tidak bisa diubah.</p>
-
-                <h3>🔓 2. Dekripsi (Ciphertext → Plaintext)</h3>
-                <p>1. User memasukkan Ciphertext.<br>
-                2. Sistem memverifikasi HMAC terlebih dahulu.<br>
-                3. Jika HMAC valid & kunci cocok → pesan dikembalikan ke bentuk asli.<br>
-                4. Jika ada 1 huruf saja yang diubah / kunci salah → sistem menolak dengan pesan <i>"Pesan tidak valid"</i>.</p>
-
-                <h3>🛡️ 3. Kenapa Aman?</h3>
-                <p>
-                • <b>AES-128:</b> Standar enkripsi yang dipakai pemerintah & perbankan.<br>
-                • <b>HMAC:</b> Mendeteksi jika pesan dimanipulasi di tengah jalan.<br>
-                • <b>Kunci Paten:</b> Kunci disimpan di Environment Variable Vercel, bukan di kode, jadi tidak berubah-ubah.<br>
-                • <b>Limit 5000 Karakter:</b> Mencegah serangan DoS / spam.<br>
-                • <b>Debug Mati di Production:</b> Error server tidak bocor ke hacker.
-                </p>
-
-                <h3>⚙️ 4. Teknologi Yang Digunakan</h3>
-                <p>• HTML/CSS
-                   • Python 
-                   • Flask 
-                   • Cryptography (Fernet) 
-                   
-                
-                </p>
-            </div>
-
-            <a href="/" style="display:block; text-align:center; margin-top:20px; background:#111; color:white; padding:12px; border-radius:10px; text-decoration:none; font-weight:700;">🏠 Kembali ke Home</a>
-
         </div>
-        <div style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.8;">Powered by MR ONE • Secure Message System</div>
+        <div class="footer">Powered by MR ONE</div>
     </div>
 </body>
 </html>
