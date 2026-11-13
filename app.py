@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request
 from cryptography.fernet import Fernet
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 
 KEY_ENV = os.environ.get("FERNET_KEY")
