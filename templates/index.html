@@ -1,123 +1,85 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CryptoSecure</title>
-    <meta name="description" content="Sistem keamanan pesan berbasis kriptografi simetris menggunakan Python Flask dan Fernet (AES-128 + HMAC).">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .navbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .logo-mini { font-weight: 800; font-size: 15px; letter-spacing: 1px; }
+        .menu-btn { font-size: 24px; background: #f1f1f1; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; }
+        .dropdown { position: relative; }
+        .dropdown-content { display: none; position: absolute; right: 0; top: 44px; background: white; min-width: 160px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-radius: 10px; overflow: hidden; z-index: 99; }
+        .dropdown-content a { display: block; padding: 12px 16px; text-decoration: none; color: #111; font-size: 14px; font-weight: 600; }
+        .dropdown-content a:hover { background: #f1f1f1; }
+        .dropdown-content.show { display: block; }
+    </style>
 </head>
-
 <body>
-
     <div class="container">
-
         <div class="card">
 
+            
+            <div class="navbar">
+                <div class="logo-mini">🔐 CRYPTOSECURE</div>
+                <div class="dropdown">
+                    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+                    <div id="menuDropdown" class="dropdown-content">
+                        <a href="/">🏠 Home</a>
+                        <a href="/about">ℹ️ About</a>
+                    </div>
+                </div>
+            </div>
+
             <div style="text-align:center; margin-bottom: 10px;">
-                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">
-                    ● CYBER SECURITY - CRYPTOGRAPHY
-                </span>
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">CYBER SECURITY - CRYPTOGRAPHY</span>
             </div>
 
             <h1>🔐 CryptoSecure</h1>
-
-            <p class="subjudul" style="font-size: 16px; font-weight: 600; color: #111;">
-                Sistem Keamanan Pesan Berbasis Kriptografi Simetris
-            </p>
-
-            <p class="subjudul" style="font-size: 14px; line-height: 1.6; color: #555;">
-                Mengamankan kerahasiaan dan integritas pesan menggunakan <b>Python Flask</b> dengan algoritma <b>Fernet (AES-128 CBC + HMAC-SHA256)</b>. Pesan yang terenkripsi hanya dapat dibuka dengan kunci yang sah dan tidak dapat dimanipulasi.
-            </p>
-
-            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 16px 0; font-size: 12px;">
-                <span style="background:#f1f1f1; padding:5px 10px; border-radius:8px;">🔒 AES-128 Encryption</span>
-                <span style="background:#f1f1f1; padding:5px 10px; border-radius:8px;">🛡️ HMAC Integrity</span>
-                <span style="background:#f1f1f1; padding:5px 10px; border-radius:8px;">🐍 Python Flask</span>
-            </div>
+            <p class="subjudul" style="font-size: 16px; font-weight: 600; color: #111;">Sistem Keamanan Pesan Berbasis Kriptografi Simetris</p>
+            <p class="subjudul" style="font-size: 14px; line-height: 1.6; color: #555;">Mengamankan kerahasiaan dan integritas pesan menggunakan algoritma <b>Fernet (AES-128 CBC + HMAC-SHA256)</b>.</p>
 
             <form method="POST">
-
-                <label for="pesan">
-                    Masukkan Pesan / Ciphertext
-                </label>
-
-                <textarea
-                    name="pesan"
-                    id="pesan"
-                    placeholder="Contoh: selamat malam"
-                    required></textarea>
-
+                <label for="pesan">Masukkan Pesan</label>
+                <textarea name="pesan" id="pesan" placeholder="Contoh: selamat malam" required></textarea>
                 <div class="button-group">
-
-                    <button
-                        type="submit"
-                        name="mode"
-                        value="enkripsi"
-                        class="btn encrypt">
-                        🔒 Enkripsi Pesan
-                    </button>
-
-                    <button
-                        type="submit"
-                        name="mode"
-                        value="dekripsi"
-                        class="btn decrypt">
-                        🔓 Dekripsi Pesan
-                    </button>
-
+                    <button type="submit" name="mode" value="enkripsi" class="btn encrypt">🔒 Enkripsi Pesan</button>
+                    <button type="submit" name="mode" value="dekripsi" class="btn decrypt">🔓 Dekripsi Pesan</button>
                 </div>
-
             </form>
 
             {% if hasil %}
-
             <div class="hasil">
-
-                <h2>
-                    {% if mode == "enkripsi" %}
-                        🔒 Hasil Enkripsi - Ciphertext
-                    {% else %}
-                        🔓 Hasil Dekripsi - Plaintext
-                    {% endif %}
-                </h2>
-
+                <h2>{% if mode == "enkripsi" %}🔒 Hasil Enkripsi - Ciphertext{% else %}🔓 Hasil Dekripsi - Plaintext{% endif %}</h2>
                 <textarea id="hasil" readonly>{{ hasil }}</textarea>
-
-                <button onclick="salinHasil()" class="copy-btn">
-                    📋 Salin Hasil
-                </button>
-
+                <button onclick="salinHasil()" class="copy-btn">📋 Salin Hasil</button>
             </div>
-
             {% endif %}
 
-            <div style="margin-top: 24px; padding: 14px; background: #f8f9fa; border-radius: 10px; font-size: 12.5px; line-height: 1.6; color: #555; text-align: left;">
-                <b style="color:#111;">Cara Kerja Sistem:</b><br>
-                <b>1. Enkripsi:</b> Plaintext diubah menjadi Ciphertext acak dengan AES-128 dan ditandatangani HMAC.<br>
-                <b>2. Dekripsi:</b> Sistem memverifikasi HMAC terlebih dahulu. Jika valid, pesan dikembalikan ke bentuk asli. Jika dimanipulasi, sistem akan menolak.
-            </div>
-
         </div>
-
-    <div style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.8;">Powered by MR ONE</div>
+    <div style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.8;">Powered by MR ONE </div>
 
     <script>
+        function toggleMenu() {
+            document.getElementById("menuDropdown").classList.toggle("show");
+        }
+        
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].classList.remove('show');
+                }
+            }
+        }
         function salinHasil() {
             const hasil = document.getElementById("hasil");
-
             hasil.select();
             hasil.setSelectionRange(0, 99999);
-
             navigator.clipboard.writeText(hasil.value);
-
             alert("Hasil berhasil disalin!");
         }
     </script>
-
 </body>
-
 </html>
