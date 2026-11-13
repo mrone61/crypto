@@ -1,451 +1,53 @@
-/* ==============================
-   RESET
-============================== */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-
-/* ==============================
-   BODY - CYBER BACKGROUND
-============================== */
-
-body {
-    font-family: "Courier New", monospace;
-
-    background:
-        linear-gradient(rgba(0, 255, 170, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 170, 0.04) 1px, transparent 1px),
-        #000000;
-
-    background-size: 35px 35px;
-
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 30px;
-
-    color: #00ff9d;
-}
-
-
-/* ==============================
-   CONTAINER
-============================== */
-
-.container {
-    width: 100%;
-    max-width: 700px;
-}
-
-
-/* ==============================
-   MAIN CARD
-============================== */
-
-.card {
-    background: rgba(5, 5, 5, 0.96);
-
-    border: 1px solid #00ff9d;
-
-    border-radius: 15px;
-
-    padding: 35px;
-
-    box-shadow:
-        0 0 10px rgba(0, 255, 157, 0.4),
-        0 0 30px rgba(0, 255, 157, 0.15),
-        inset 0 0 25px rgba(0, 255, 157, 0.03);
-
-    position: relative;
-
-    overflow: hidden;
-}
-
-
-/* Garis cyber di bagian atas */
-
-.card::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 3px;
-
-    background: #00ff9d;
-
-    box-shadow:
-        0 0 10px #00ff9d,
-        0 0 20px #00ff9d;
-}
-
-
-/* ==============================
-   JUDUL
-============================== */
-
-h1 {
-    text-align: center;
-
-    color: #00ff9d;
-
-    font-size: 30px;
-
-    margin-bottom: 12px;
-
-    text-shadow:
-        0 0 5px #00ff9d,
-        0 0 15px #00ff9d,
-        0 0 30px rgba(0, 255, 157, 0.7);
-
-    letter-spacing: 2px;
-}
-
-
-/* ==============================
-   SUBJUDUL
-============================== */
-
-.subjudul {
-    text-align: center;
-
-    color: #6affc5;
-
-    margin-bottom: 30px;
-
-    font-size: 14px;
-
-    letter-spacing: 1px;
-}
-
-
-/* ==============================
-   LABEL
-============================== */
-
-label {
-    display: block;
-
-    font-weight: bold;
-
-    margin-bottom: 10px;
-
-    color: #00ff9d;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-}
-
-
-/* ==============================
-   TEXTAREA
-============================== */
-
-textarea {
-    width: 100%;
-
-    min-height: 150px;
-
-    padding: 16px;
-
-    background: #030303;
-
-    border: 1px solid #00ff9d;
-
-    border-radius: 8px;
-
-    color: #00ff9d;
-
-    resize: vertical;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 15px;
-
-    outline: none;
-
-    box-shadow:
-        inset 0 0 15px rgba(0, 255, 157, 0.05);
-
-    transition: 0.3s;
-}
-
-
-/* Placeholder */
-
-textarea::placeholder {
-    color: #397f67;
-}
-
-
-/* Focus */
-
-textarea:focus {
-    border-color: #00ffff;
-
-    box-shadow:
-        0 0 10px rgba(0, 255, 255, 0.5),
-        0 0 25px rgba(0, 255, 157, 0.15);
-
-    color: #00ffff;
-}
-
-
-/* ==============================
-   BUTTON GROUP
-============================== */
-
-.button-group {
-    display: flex;
-
-    gap: 15px;
-
-    margin-top: 20px;
-}
-
-
-/* ==============================
-   BUTTON
-============================== */
-
-.btn {
-    flex: 1;
-
-    border: 1px solid #00ff9d;
-
-    padding: 14px;
-
-    border-radius: 8px;
-
-    color: #000;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-
-    transition: 0.3s;
-}
-
-
-/* Tombol Enkripsi */
-
-.encrypt {
-    background: #00ff9d;
-
-    box-shadow:
-        0 0 10px rgba(0, 255, 157, 0.5);
-}
-
-
-/* Tombol Dekripsi */
-
-.decrypt {
-    background: #00ffff;
-
-    border-color: #00ffff;
-
-    box-shadow:
-        0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-
-/* Hover tombol */
-
-.btn:hover {
-    transform: translateY(-3px) scale(1.02);
-
-    box-shadow:
-        0 0 10px currentColor,
-        0 0 25px currentColor,
-        0 0 40px rgba(0, 255, 157, 0.4);
-}
-
-
-/* ==============================
-   HASIL
-============================== */
-
-.hasil {
-    margin-top: 30px;
-
-    padding-top: 25px;
-
-    border-top: 1px dashed #00ff9d;
-}
-
-
-.hasil h2 {
-    margin-bottom: 10px;
-
-    color: #00ff9d;
-
-    font-size: 18px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-
-    text-shadow:
-        0 0 10px rgba(0, 255, 157, 0.8);
-}
-
-
-/* Textarea hasil */
-
-.hasil textarea {
-    background: #000000;
-
-    color: #00ffff;
-
-    border-color: #00ffff;
-
-    min-height: 130px;
-
-    text-shadow:
-        0 0 5px rgba(0, 255, 255, 0.6);
-}
-
-
-/* ==============================
-   COPY BUTTON
-============================== */
-
-.copy-btn {
-    width: 100%;
-
-    margin-top: 10px;
-
-    padding: 12px;
-
-    border: 1px solid #00ff9d;
-
-    border-radius: 8px;
-
-    background: #050505;
-
-    color: #00ff9d;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    text-transform: uppercase;
-
-    transition: 0.3s;
-}
-
-
-.copy-btn:hover {
-    background: #00ff9d;
-
-    color: #000000;
-
-    box-shadow:
-        0 0 10px #00ff9d,
-        0 0 25px rgba(0, 255, 157, 0.7);
-}
-
-
-/* ==============================
-   INFO
-============================== */
-
-.info {
-    margin-top: 20px;
-
-    background: #050505;
-
-    padding: 20px;
-
-    border-radius: 10px;
-
-    border: 1px solid #143d30;
-
-    color: #6affc5;
-
-    box-shadow:
-        0 0 15px rgba(0, 255, 157, 0.05);
-}
-
-
-.info h3 {
-    margin-bottom: 15px;
-
-    color: #00ff9d;
-
-    text-transform: uppercase;
-
-    font-size: 16px;
-
-    text-shadow:
-        0 0 8px rgba(0, 255, 157, 0.7);
-}
-
-
-.info p {
-    margin-bottom: 10px;
-
-    line-height: 1.6;
-
-    font-size: 13px;
-}
-
-
-.info b {
-    color: #00ffff;
-}
-
-
-/* ==============================
-   RESPONSIVE HP
-============================== */
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 15px;
-    }
-
-    .card {
-        padding: 22px;
-    }
-
-    h1 {
-        font-size: 23px;
-    }
-
-    .button-group {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-    }
-
-    textarea {
-        min-height: 130px;
-    }
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+body { background: #f4f5f7; color: #111827; min-height: 100vh; }
+
+/* --- NAVBAR DI LUAR KOTAK --- */
+.navbar { max-width: 640px; margin: 0 auto; padding: 20px 16px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 800; font-size: 16px; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
+.logo span { font-size: 11px; font-weight: 600; background: #111827; color: #fff; padding: 3px 8px; border-radius: 99px; letter-spacing: 0.5px; }
+
+/* Tombol titik 3 */
+.menu-wrap { position: relative; }
+.menu-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #e5e7eb; background: #fff; font-size: 20px; cursor: pointer; line-height: 1; }
+.menu-btn:hover { background: #f9fafb; }
+.dropdown { display: none; position: absolute; right: 0; top: 46px; background: #fff; width: 180px; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; z-index: 50; }
+.dropdown.show { display: block; }
+.dropdown a { display: block; padding: 12px 16px; text-decoration: none; color: #111827; font-size: 14px; font-weight: 500; }
+.dropdown a:hover { background: #f9fafb; }
+
+/* --- CARD UTAMA --- */
+.container { max-width: 640px; margin: 0 auto; padding: 0 16px 40px; }
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 32px 28px; text-align: center; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+h1 { font-size: 28px; letter-spacing: -0.5px; margin-bottom: 8px; }
+.subjudul { font-size: 14px; line-height: 1.6; color: #6b7280; max-width: 480px; margin: 0 auto 8px; }
+.subjudul b { color: #111827; }
+
+/* --- FORM RATA TENGAH --- */
+form { margin-top: 24px; text-align: center; }
+label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-align: left; }
+textarea { width: 100%; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; font-size: 14px; min-height: 110px; resize: vertical; outline: none; }
+textarea:focus { border-color: #111827; }
+textarea#hasil { background: #f9fafb; min-height: 90px; }
+
+.button-group { display: flex; gap: 10px; margin-top: 16px; }
+.btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; }
+.btn.encrypt { background: #111827; color: #fff; }
+.btn.decrypt { background: #fff; color: #111827; border: 1px solid #e5e7eb; }
+.btn:hover { opacity: 0.9; }
+
+/* --- HASIL --- */
+.hasil { margin-top: 24px; text-align: left; border-top: 1px solid #e5e7eb; padding-top: 20px; }
+.hasil h2 { font-size: 15px; margin-bottom: 10px; text-align: center; }
+.copy-btn { width: 100%; margin-top: 10px; padding: 11px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; font-weight: 600; cursor: pointer; }
+
+.info-box { margin-top: 24px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; text-align: left; font-size: 13px; line-height: 1.7; color: #4b5563; }
+.info-box b { color: #111827; }
+
+.footer { text-align: center; margin-top: 20px; font-size: 12px; color: #9ca3af; }
+
+/* --- ABOUT PAGE --- */
+.about-list { text-align: left; margin-top: 20px; }
+.about-list h3 { font-size: 15px; margin: 20px 0 8px; }
+.about-list p { font-size: 14px; line-height: 1.7; color: #4b5563; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #111827; font-size: 13px; font-weight: 600; border: 1px solid #e5e7eb; padding: 8px 14px; border-radius: 99px; background: #fff; }
