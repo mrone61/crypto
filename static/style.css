@@ -1,53 +1,188 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-body { background: #f4f5f7; color: #111827; min-height: 100vh; }
+
+body {
+    background: #050505;
+    color: #e5e7eb;
+    min-height: 100vh;
+    /* Efek cyber halus di background, bukan norak */
+    background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+    background-attachment: fixed;
+}
 
 /* --- NAVBAR DI LUAR KOTAK --- */
-.navbar { max-width: 640px; margin: 0 auto; padding: 20px 16px; display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: 800; font-size: 16px; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
-.logo span { font-size: 11px; font-weight: 600; background: #111827; color: #fff; padding: 3px 8px; border-radius: 99px; letter-spacing: 0.5px; }
+.navbar {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 22px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.logo span {
+    font-size: 10px;
+    font-weight: 700;
+    background: #10b981;
+    color: #050505;
+    padding: 4px 8px;
+    border-radius: 99px;
+    letter-spacing: 1px;
+}
 
 /* Tombol titik 3 */
 .menu-wrap { position: relative; }
-.menu-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #e5e7eb; background: #fff; font-size: 20px; cursor: pointer; line-height: 1; }
-.menu-btn:hover { background: #f9fafb; }
-.dropdown { display: none; position: absolute; right: 0; top: 46px; background: #fff; width: 180px; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; z-index: 50; }
+.menu-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid #262626;
+    background: #0d0d0d;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+.menu-btn:hover { border-color: #10b981; }
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0; top: 46px;
+    background: #111111;
+    width: 190px;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    overflow: hidden;
+    z-index: 50;
+}
 .dropdown.show { display: block; }
-.dropdown a { display: block; padding: 12px 16px; text-decoration: none; color: #111827; font-size: 14px; font-weight: 500; }
-.dropdown a:hover { background: #f9fafb; }
+.dropdown a {
+    display: block;
+    padding: 13px 16px;
+    text-decoration: none;
+    color: #e5e7eb;
+    font-size: 14px;
+    font-weight: 500;
+}
+.dropdown a:hover { background: #1a1a1a; color: #10b981; }
 
 /* --- CARD UTAMA --- */
 .container { max-width: 640px; margin: 0 auto; padding: 0 16px 40px; }
-.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 32px 28px; text-align: center; }
-.badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
-h1 { font-size: 28px; letter-spacing: -0.5px; margin-bottom: 8px; }
-.subjudul { font-size: 14px; line-height: 1.6; color: #6b7280; max-width: 480px; margin: 0 auto 8px; }
-.subjudul b { color: #111827; }
+.card {
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+}
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #10b981;
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.25);
+    padding: 6px 12px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+}
+h1 { font-size: 28px; letter-spacing: -0.5px; margin-bottom: 8px; color: #fff; }
+.subjudul {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #9ca3af;
+    max-width: 480px;
+    margin: 0 auto 8px;
+}
+.subjudul b { color: #fff; }
 
 /* --- FORM RATA TENGAH --- */
 form { margin-top: 24px; text-align: center; }
-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-align: left; }
-textarea { width: 100%; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; font-size: 14px; min-height: 110px; resize: vertical; outline: none; }
-textarea:focus { border-color: #111827; }
-textarea#hasil { background: #f9fafb; min-height: 90px; }
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+    color: #d1d5db;
+}
+textarea {
+    width: 100%;
+    background: #050505;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 14px;
+    color: #fff;
+    min-height: 110px;
+    resize: vertical;
+    outline: none;
+}
+textarea::placeholder { color: #525252; }
+textarea:focus { border-color: #10b981; }
+textarea#hasil { background: #111111; min-height: 90px; color: #a7f3d0; }
 
 .button-group { display: flex; gap: 10px; margin-top: 16px; }
 .btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; }
-.btn.encrypt { background: #111827; color: #fff; }
-.btn.decrypt { background: #fff; color: #111827; border: 1px solid #e5e7eb; }
-.btn:hover { opacity: 0.9; }
+.btn.encrypt { background: #10b981; color: #050505; }
+.btn.encrypt:hover { background: #34d399; }
+.btn.decrypt { background: #1a1a1a; color: #fff; border: 1px solid #262626; }
+.btn.decrypt:hover { border-color: #10b981; }
 
 /* --- HASIL --- */
-.hasil { margin-top: 24px; text-align: left; border-top: 1px solid #e5e7eb; padding-top: 20px; }
-.hasil h2 { font-size: 15px; margin-bottom: 10px; text-align: center; }
-.copy-btn { width: 100%; margin-top: 10px; padding: 11px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; font-weight: 600; cursor: pointer; }
+.hasil { margin-top: 24px; text-align: left; border-top: 1px solid #1f1f1f; padding-top: 20px; }
+.hasil h2 { font-size: 15px; margin-bottom: 10px; text-align: center; color: #fff; }
+.copy-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 11px;
+    background: #1a1a1a;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.copy-btn:hover { border-color: #10b981; }
 
-.info-box { margin-top: 24px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; text-align: left; font-size: 13px; line-height: 1.7; color: #4b5563; }
-.info-box b { color: #111827; }
+.info-box {
+    margin-top: 24px;
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #9ca3af;
+}
+.info-box b { color: #fff; }
 
-.footer { text-align: center; margin-top: 20px; font-size: 12px; color: #9ca3af; }
+.footer { text-align: center; margin-top: 20px; font-size: 12px; color: #525252; }
 
 /* --- ABOUT PAGE --- */
 .about-list { text-align: left; margin-top: 20px; }
-.about-list h3 { font-size: 15px; margin: 20px 0 8px; }
-.about-list p { font-size: 14px; line-height: 1.7; color: #4b5563; }
-.back-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #111827; font-size: 13px; font-weight: 600; border: 1px solid #e5e7eb; padding: 8px 14px; border-radius: 99px; background: #fff; }
+.about-list h3 { font-size: 15px; margin: 20px 0 8px; color: #fff; }
+.about-list p { font-size: 14px; line-height: 1.7; color: #9ca3af; }
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #262626;
+    padding: 8px 14px;
+    border-radius: 99px;
+    background: #0d0d0d;
+}
+.back-link:hover { border-color: #10b981; color: #10b981; }
