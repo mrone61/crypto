@@ -20,27 +20,25 @@
     <div class="container">
         <div class="card">
             <h1>CryptoSecure Vault</h1>
-            <p class="subjudul">Brankas digital untuk mengamankan <b>pesan, gambar, audio, dan video</b> berbasis kriptografi simetris menggunakan <b>AES-128 + HMAC-SHA256 + PBKDF2</b>. Hanya pemilik password yang dapat membuka.</p>
+            <p class="subjudul">Brankas digital untuk mengamankan <b>pesan, gambar, audio, dan video</b> berbasis kriptografi simetris menggunakan Teknologi <b>AES-128 + HMAC-SHA256 + PBKDF2</b>.</p>
 
             <form method="POST" enctype="multipart/form-data">
-                <label for="pesan">Masukkan Pesan / Token</label>
-                <textarea name="pesan" id="pesan" placeholder="Contoh: selamat malam / paste token enkripsi di sini">{{ pesan or '' }}</textarea>
+                <label for="pesan">Masukkan Pesan</label>
+                <textarea name="pesan" id="pesan" placeholder="Contoh: selamat malam">{{ pesan or '' }}</textarea>
 
-                <!-- PASSWORD - INI KUNCINYA -->
-                <label for="password" style="margin-top:16px;">Password Vault</label>
-                <input type="password" name="password" id="password" placeholder="Buat / masukkan password untuk kunci & buka" required style="width:100%; padding:12px 14px; background:#1a1a1a; border:1px solid #262626; border-radius:12px; color:#fff; font-size:14px; outline:none; box-sizing:border-box;">
-                <p style="font-size:11px; color:#9ca3af; margin:6px 0 0 0; text-align:left;">⚠️ Password tidak disimpan di server. Lupa password = file tidak bisa dibuka lagi.</p>
-
-                <!-- TOMBOL + BUAT FILE -->
                 <div style="display:flex; align-items:center; gap:10px; margin-top:16px; text-align:left;">
-                    <label for="fileInput" style="cursor:pointer; background:#1a1a1a; border:1px solid #262626; padding:8px 14px; border-radius:99px; font-size:13px; color:#fff; font-weight:600; white-space:nowrap;">+ Gambar / Audio / Video</label>
+                    <label for="fileInput" style="cursor:pointer; background:#1a1a1a; border:1px solid #262626; padding:8px 14px; border-radius:99px; font-size:13px; color:#fff; font-weight:600; white-space:nowrap;">+</label>
                     <input type="file" id="fileInput" name="file" style="display:none;" onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : ''">
                     <span id="fileName" style="font-size:12px; color:#9ca3af; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></span>
                 </div>
+                
+                <label for="password" style="margin-top:16px;">Password Vault</label>
+                <input type="password" name="password" id="password" placeholder="masukkan password" required style="width:100%; padding:12px 14px; background:#1a1a1a; border:1px solid #262626; border-radius:12px; color:#fff; font-size:14px; outline:none; box-sizing:border-box;">
+                <p style="font-size:11px; color:#9ca3af; margin:6px 0 0 0; text-align:left;"></p>                
 
                 <div class="button-group">
-                    <button type="submit" name="mode" value="enkripsi" class="btn encrypt">Enkripsi & Kunci</button>
-                    <button type="submit" name="mode" value="dekripsi" class="btn decrypt">Buka / Dekripsi</button>
+                    <button type="submit" name="mode" value="enkripsi" class="btn encrypt">Enkripsi </button>
+                    <button type="submit" name="mode" value="dekripsi" class="btn decrypt">Dekripsi</button>
                 </div>
             </form>
 
@@ -50,7 +48,7 @@
                 <textarea id="hasil" readonly>{{ hasil }}</textarea>
                 <button onclick="salinHasil()" class="copy-btn">Salin Hasil</button>
 
-                <!-- KALO HASIL DEKRIP NYA FILE, TAMPILIN DI SINI -->
+                
                 {% if hasil_file %}
                 <div style="margin-top:16px; text-align:center;">
                     <p style="font-size:13px; color:#9ca3af;">File: {{ hasil_filename }}</p>
