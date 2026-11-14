@@ -114,6 +114,22 @@ label {
     text-align: left;
     color: #d1d5db;
 }
+
+/* --- INPUT PASSWORD - BIAR RAPI KAYAK TEXTAREA --- */
+input[type="password"] {
+    width: 100%;
+    background: #050505;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 14px;
+    color: #fff;
+    outline: none;
+}
+input[type="password"]::placeholder { color: #525252; }
+input[type="password"]:focus { border-color: #10b981; }
+
+/* --- TEXTAREA - UDAH DIKUNCI, GAK BISA DI TARIK-TARIK LAGI --- */
 textarea {
     width: 100%;
     background: #050505;
@@ -122,13 +138,29 @@ textarea {
     padding: 14px;
     font-size: 14px;
     color: #fff;
-    min-height: 110px;
-    resize: vertical;
+    line-height: 1.6;
     outline: none;
+    /* INI KUNCI NYA BRO */
+    resize: none;
+    min-height: 110px;
+    max-height: 180px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-break: break-all;
 }
 textarea::placeholder { color: #525252; }
 textarea:focus { border-color: #10b981; }
-textarea#hasil { background: #111111; min-height: 90px; color: #a7f3d0; }
+textarea#hasil {
+    background: #111111;
+    min-height: 130px;
+    max-height: 220px;
+    color: #a7f3d0;
+    resize: none;
+    overflow-y: auto;
+}
+textarea#pesan {
+    resize: none;
+}
 
 .button-group { display: flex; gap: 10px; margin-top: 16px; }
 .btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; }
@@ -186,3 +218,10 @@ textarea#hasil { background: #111111; min-height: 90px; color: #a7f3d0; }
     background: #0d0d0d;
 }
 .back-link:hover { border-color: #10b981; color: #10b981; }
+
+/* --- RESPONSIVE HP --- */
+@media (max-width: 480px) {
+    .card { padding: 24px 18px; }
+    h1 { font-size: 24px; }
+    .button-group { flex-direction: column; }
+}
